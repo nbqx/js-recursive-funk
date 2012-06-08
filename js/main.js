@@ -1,6 +1,13 @@
 var fn = function(c,i){
   var cnt = c&3;
 
+  if(c<16){
+    Bass.jmp = false;
+  }else{
+    Bass.jmp = true;
+  }
+  
+  Bass.cutoff = 100;
   Bass.bass_loop(cnt);
 
   if(c===0 || c===4 || c>7){
@@ -8,12 +15,16 @@ var fn = function(c,i){
       Drumkit.bd_loop(cnt);
       Drumkit.sd_loop(cnt);
       Drumkit.hh_loop(cnt);
+    }else{
+      if(cnt===3){
+        OSX.funk();
+      }
     }
   }
 
   if(cnt===3){
     Bass.current_seq = Bass.rnd_seq_change(Bass.bass_seqs);
-
+    
     if(c>15){
       Drumkit.current_hh_seq = Drumkit.rnd_seq_change(Drumkit.hh_seqs);
       Drumkit.current_sd_seq = Drumkit.rnd_seq_change(Drumkit.sd_seqs);
